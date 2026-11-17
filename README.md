@@ -107,21 +107,16 @@ THD = √(V₂² + V₃²) / V₁ = √(0.01² + 0.0056²) ≈ 1.15%
 
 ## Notes and limitations
 
-**Stated in the report**
-- The working frequency range was 100 Hz–10 kHz. The reference instrument covers 0.3 Hz–3 MHz.
-- Output amplitude was far below the 20 Vpp target (480 mV sine, 620 mV triangle), and users reported it was unstable.
+**Current state of the project**
 - Pulse shares the square-wave path. A dedicated differentiator stage was planned but not built.
 - The supply is battery-based, so it drifts over time.
 - TTL output, trigger output, FM input and protection circuits were specified but not implemented.
 
-**From reading the code**
+**Within the code**
 - `freqStr` is declared as `char freqStr[7]` and filled with 7 digits, so there is no terminating `'\0'`. `atol(freqStr)` reads past the end of the array and only works if the next byte in memory happens to be zero. Declaring it as `char freqStr[8]`, with `'\0'` as the last element, fixes this.
 - The amplitude value (0–9) is only shown on the LCD and is never sent to the hardware. The actual gain is set by the R3 potentiometer.
 - `PULSE` and `SQUARE` both send `AD9833_SQUARE1`.
 
-**My interpretation, not tested**
-- A resistor divider is not a regulator. The ±12 V and +5 V nodes in the power schematic will sag as soon as they supply real current.
-
 ## Contributions
 
-This was a tribe-scale group project. The report lists about 85 members across five teams (documentation, research, design, software and hardware), each with coordinators. I was a Tribe Sub-Coordinator in the hardware team. The firmware and PCB files here come from the tribe's shared repositories.
+This was a tribe-scale group project. The report lists about 85 members across five teams (documentation, research, design, software and hardware), each with coordinators. I was the Tribe Sub-Coordinator, and also in the hardware team. The firmware and PCB files here come from the tribe's shared repositories.
